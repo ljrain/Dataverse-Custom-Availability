@@ -23,4 +23,4 @@ jobs:
         cloud: "USGOV"
 
   call-workflow-passing-data:
-    uses: ljrain/DataverseAppInsightsTrackAvailability/.github/workflows/msbuild.yml.yml@main
+    uses: ljrain/DataverseAppInsightsTrackAvailability/.github/workflows/msbuild.yml.yml
