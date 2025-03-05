@@ -1,0 +1,20 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TrackAvailability.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="AppInsightsConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;ConnectionString&gt;InstrumentationKey=bf10b4d5-7c38-4d6c-8655-79a409a55663;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/;ApplicationId=e700d1b1-4b82-44e7-8825-9151ad34df89&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">InstrumentationKey=bf10b4d5-7c38-4d6c-8655-79a409a55663;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/;ApplicationId=e700d1b1-4b82-44e7-8825-9151ad34df89</Value>
+    </Setting>
+    <Setting Name="DvConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;ConnectionString&gt;AuthType=ClientSecret;ClientId=70dbbbb5-71bd-45d5-a23b-f23149d30c73;ClientSecret=1F58Q~F8aLc1gZ0MUnCNxypvUUm7fPNhQcq5JbT1;Url=https://ljr-appinsightsdv.crm9.dynamics.com&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">AuthType=ClientSecret;ClientId=70dbbbb5-71bd-45d5-a23b-f23149d30c73;ClientSecret=1F58Q~F8aLc1gZ0MUnCNxypvUUm7fPNhQcq5JbT1;Url=https://ljr-appinsightsdv.crm9.dynamics.com</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
