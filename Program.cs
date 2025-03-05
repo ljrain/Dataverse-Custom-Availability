@@ -24,7 +24,7 @@ namespace TrackAvailability
 
             #region "Custom Tests"
             AvailabilityTelemetry results = Program.WhoAmI(dvConnectionString);
-            results.Duration = startTime.Subtract(DateTime.Now);
+            results.Duration = DateTime.Now.Subtract(startTime);
 
             TelemetryConfiguration config = new TelemetryConfiguration();
             config.ConnectionString = aiConnectionString;
@@ -66,7 +66,7 @@ namespace TrackAvailability
 
                     availabilityTelemetry.Success = true;
                     availabilityTelemetry.RunLocation = "GitHub";
-                    availabilityTelemetry.Message = "Connected "+ whoAmIResponse.OrganizationId;
+                    availabilityTelemetry.Message = "Connected";
                     availabilityTelemetry.Name = "WhoAmI";
 
                     // Output the results
