@@ -16,10 +16,10 @@ jobs:
     - name: who-am-i action
       uses: microsoft/powerplatform-actions/who-am-i@v0
       with:
-        environment-url: "https://ljr-appinsightsdv.crm9.dynamics.com/"
-        app-id: "70dbbbb5-71bd-45d5-a23b-f23149d30c73"
-        client-secret: "1F58Q~F8aLc1gZ0MUnCNxypvUUm7fPNhQcq5JbT1"
-        tenant-id: "c0daba30-fba7-4669-a2fc-36142728b7e9"
+        environment-url: ${{ secrets.DATAVERSEURL }}
+        app-id: ${{ secrets.APPID }}
+        client-secret: ${{ secrets.CLIENTSECRET }}
+        tenant-id: ${{ secrets.TENANTID }}
         cloud: "USGOV"
         
   reusable_workflow_job:
