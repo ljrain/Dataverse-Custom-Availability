@@ -65,7 +65,7 @@ namespace TrackAvailability
 
                     availabilityTelemetry.Success = true;
                     availabilityTelemetry.RunLocation = "GitHub";
-                    availabilityTelemetry.Message = "Connected";
+                    availabilityTelemetry.Message = "Connected "+ whoAmIResponse.OrganizationId;
                     availabilityTelemetry.Name = "WhoAmI";
 
                     // Output the results
