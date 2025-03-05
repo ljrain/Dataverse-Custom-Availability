@@ -22,12 +22,12 @@ jobs:
         tenant-id: ${{ secrets.TENANTID }}
         cloud: "USGOV"
         
-  reusable_workflow_job:
-    runs-on: windows-latest
-    steps:
-    - uses: actions/msbuild.yml@main
-      with:
-        repo-token: ${{ secrets.personal_access_token }}
-        configuration-path: ${{ inputs.config-path }}
+  #reusable_workflow_job:
+  #  runs-on: windows-latest
+  #  steps:
+  #  - uses: actions/msbuild.yml@main
+  #    with:
+  #      repo-token: ${{ secrets.personal_access_token }}
+  #      configuration-path: ${{ inputs.config-path }}
 
 
