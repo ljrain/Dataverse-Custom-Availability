@@ -21,6 +21,13 @@ jobs:
         client-secret: "1F58Q~F8aLc1gZ0MUnCNxypvUUm7fPNhQcq5JbT1"
         tenant-id: "c0daba30-fba7-4669-a2fc-36142728b7e9"
         cloud: "USGOV"
+        
+  reusable_workflow_job:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/msbuild.yml@main
+      with:
+        repo-token: ${{ secrets.personal_access_token }}
+        configuration-path: ${{ inputs.config-path }}
 
-  call-workflow:
-    uses: ljrain/DataverseAppInsightsTrackAvailability/.github/workflows/msbuild.yml@main
+
