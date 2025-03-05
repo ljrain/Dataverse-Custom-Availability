@@ -21,4 +21,6 @@ jobs:
         client-secret: "1F58Q~F8aLc1gZ0MUnCNxypvUUm7fPNhQcq5JbT1"
         tenant-id: "c0daba30-fba7-4669-a2fc-36142728b7e9"
         cloud: "USGOV"
-        
+
+  call-workflow-passing-data:
+    uses: ljrain/DataverseAppInsightsTrackAvailability/.github/workflows/msbuild.yml.yml@main
