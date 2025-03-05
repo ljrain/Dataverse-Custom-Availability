@@ -24,6 +24,7 @@ namespace TrackAvailability
 
             #region "Custom Tests"
             AvailabilityTelemetry results = Program.WhoAmI(dvConnectionString);
+            results.Duration = startTime.Subtract(DateTime.Now);
 
             TelemetryConfiguration config = new TelemetryConfiguration();
             config.ConnectionString = aiConnectionString;
@@ -36,6 +37,7 @@ namespace TrackAvailability
                 Success = results.Success,
                 Message = results.Message,
                 Name = results.Name,
+                RunLocation = results.RunLocation,
                 Timestamp = DateTimeOffset.UtcNow
             };
 
@@ -45,7 +47,6 @@ namespace TrackAvailability
             #endregion
 
             Console.WriteLine("Availability tracked successfully.");
-
         }
 
 
