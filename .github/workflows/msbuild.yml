@@ -47,7 +47,7 @@ jobs:
       run: |
          cd D:\a\DataverseAppInsightsTrackAvailability\DataverseAppInsightsTrackAvailability\bin\Release
          dir
-         TrackAvailability.exe
+         .\TTrackAvailability.exe
 
     #- name: Run Executable
     #  run: | 
