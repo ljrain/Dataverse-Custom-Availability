@@ -14,7 +14,12 @@ jobs:
          name: TrackAvailability
          path: ./TrackAvailability-app
 
+    - name: RUnzip artifact
+      run: |
+        Expand-Archive -Path ./TrackAvailability-app/TrackAvailability.zip -DestinationPath ./TrackAvailability-app
+
     - name: Run the executable
       run: |
         cd ./TrackAvailability-app
-        .\TrackAvailability.exe # Replace with the name of your executable
+        .\TrackAvailability.exe # Replace with the name of your executable        
+
