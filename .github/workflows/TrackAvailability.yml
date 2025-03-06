@@ -12,12 +12,9 @@ jobs:
       uses: actions/download-artifact@v4
       with:
          name: TrackAvailability
-         path: D:\a\DataverseAppInsightsTrackAvailability\DataverseAppInsightsTrackAvailability\bin\Release
-
-    - name: List files in the directory
-      run: dir ./console-app
+         path: ./TrackAvailability-app
 
     - name: Run the executable
       run: |
-        cd ./console-app
+        cd ./TrackAvailability-app
         .\TrackAvailability.exe # Replace with the name of your executable
