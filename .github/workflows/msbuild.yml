@@ -46,7 +46,7 @@ jobs:
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: |
          cd D:\a\DataverseAppInsightsTrackAvailability\DataverseAppInsightsTrackAvailability\bin\Release
-         dir
+         TrackAvailability.exe
 
     #- name: Run Executable
     #  run: | 
