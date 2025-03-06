@@ -48,9 +48,9 @@ jobs:
          dir /s /b DataverseAppInsightsTrackAvailability\bin\Debug\
 
     - name: Run Executable
-      run: |
-         $executable = Get-ChildItem -Path DataverseAppInsightsTrackAvailability\bin\Debug -Filter *.exe -Recurse | Select-Object -First 1
-           echo "::set-output name=executable-path::$($executable.FullName)"
+      run: | 
+         dir DataverseAppInsightsTrackAvailability\bin\Release
+         $executable = Get-ChildItem -Path DataverseAppInsightsTrackAvailability\bin\Debug -Filter *.exe -Recurse
 
 
 
