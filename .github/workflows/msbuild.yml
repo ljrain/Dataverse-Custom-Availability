@@ -45,7 +45,7 @@ jobs:
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: |
-         cd D:\a\DataverseAppInsightsTrackAvailability\DataverseAppInsightsTrackAvailability\bin
+         cd D:\a\DataverseAppInsightsTrackAvailability\DataverseAppInsightsTrackAvailability\bin\Release
          dir
 
     #- name: Run Executable
