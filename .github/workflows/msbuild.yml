@@ -7,6 +7,9 @@ name: MSBuild
 
 on:
    workflow_dispatch:
+   push:
+    branches:
+      - main
 
 env:
   # Path to the solution file relative to the root of the project.
@@ -40,11 +43,17 @@ jobs:
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
     
-    - name: Run Tracker
-      working-directory: \bin\Release
+    - name: Find the executable
+      id: find-executable
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: dir
+      run: |
+         dir /s /b DataverseAppInsightsTrackAvailability\bin\Debug\*.exe
+
+    - name: Run Executable
+      run: |
+         $executable = (Get-Content ${{ steps.find-executable.outputs.stdout }}).Trim()
+           & $executable
 
 
 
