@@ -1,9 +1,7 @@
 name: Download and Run Tracker
 
 on:
-  push:
-    branches:
-      - 'main'
+  repository_dispatch:
 
 jobs:
   run:
