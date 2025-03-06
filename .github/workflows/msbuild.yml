@@ -50,7 +50,7 @@ jobs:
          .\TrackAvailability.exe
 
     - name: Publish Artifact
-      uses: actions/upload-artifact@v4.6.1
+      uses: actions/upload-artifact@v4
       with:
          name: TrackAvailability
          path: D:\a\DataverseAppInsightsTrackAvailability\DataverseAppInsightsTrackAvailability\bin\Release
