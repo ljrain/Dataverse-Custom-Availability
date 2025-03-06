@@ -45,12 +45,12 @@ jobs:
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: |
-         dir /s /b DataverseAppInsightsTrackAvailability\bin\Debug\
+         dir /s DataverseAppInsightsTrackAvailability\bin\Release\*.exe
 
-    - name: Run Executable
-      run: | 
-         dir DataverseAppInsightsTrackAvailability\bin\Release
-         $executable = Get-ChildItem -Path DataverseAppInsightsTrackAvailability\bin\Debug -Filter *.exe -Recurse
+    #- name: Run Executable
+    #  run: | 
+    #     dir DataverseAppInsightsTrackAvailability\bin\Release
+    #     $executable = Get-ChildItem -Path DataverseAppInsightsTrackAvailability\bin\Debug -Filter *.exe -Recurse
 
 
 
