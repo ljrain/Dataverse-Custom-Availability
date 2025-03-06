@@ -11,7 +11,7 @@ jobs:
       #if: ${{ inputs.USE_LATEST == 'true' }}
       shell: pwsh
       run: |
-          $wfId = "13700922158"
+          $wfId = "13701502635"
           $url = "https://github.com/ljrain/DataverseAppInsightsTrackAvailability/actions/workflows/$wfId/runs"
           Write-Host $url
           $runs = curl -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ github.token }}" -H "X-GitHub-Api-Version: 2022-11-28" $url
