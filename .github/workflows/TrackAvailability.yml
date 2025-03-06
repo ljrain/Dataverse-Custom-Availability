@@ -2,13 +2,16 @@ name: Download and Run Tracker
 
 on:
    workflow_dispatch:
-
+    inputs:
+      USE_LATEST:
+        description: "Set to true to use the most recent artificat. (default)"
+        required: true
 jobs:
   run:
     runs-on: windows-latest
     steps:
     - name: Dynamically GetArtifact Info
-      #if: ${{ inputs.USE_LATEST == 'true' }}
+      if: ${{ inputs.USE_LATEST == 'true' }}
       shell: pwsh
       run: |
           $wfId = "13701502635"
