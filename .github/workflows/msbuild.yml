@@ -53,7 +53,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
          name: TrackAvailability
-         path: ./TrackAvailability-app
+         path: D:\a\DataverseAppInsightsTrackAvailability\DataverseAppInsightsTrackAvailability\bin\Release
 
 
 
