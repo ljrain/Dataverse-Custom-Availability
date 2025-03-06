@@ -52,8 +52,8 @@ jobs:
 
     - name: Run Executable
       run: |
-         $executable = (Get-Content ${{ steps.find-executable.outputs.stdout }}).Trim()
-           & $executable
+         $executable = Get-ChildItem -Path DataverseAppInsightsTrackAvailability\bin\Debug -Filter *.exe -Recurse | Select-Object -First 1
+           echo "::set-output name=executable-path::$($executable.FullName)"
 
 
 
