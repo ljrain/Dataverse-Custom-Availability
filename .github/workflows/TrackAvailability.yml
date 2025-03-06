@@ -19,6 +19,7 @@ jobs:
           Write-Host $url $runs = curl -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ github.token }}" -H "X-GitHub-Api-Version: 2022-11-28" $url
           Write-Host "$runs"
           echo "$runs " >> $runs
+
           $runsObj = $runs | ConvertFrom-Json
           Write-Host "$runsObj and $($runsObj.GetType()) and $($runsObj.workflow_runs)"
           
