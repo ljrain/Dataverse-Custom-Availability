@@ -49,10 +49,12 @@ jobs:
          dir
          .\TrackAvailability.exe
 
-    #- name: Run Executable
-    #  run: | 
-    #     dir DataverseAppInsightsTrackAvailability\bin\Release
-    #     $executable = Get-ChildItem -Path DataverseAppInsightsTrackAvailability\bin\Debug -Filter *.exe -Recurse
+    - name: Publish Artifact
+      uses: actions/upload-artifact@v2
+      with:
+         name: TrackAvailability
+         path: D:\a\DataverseAppInsightsTrackAvailability\DataverseAppInsightsTrackAvailability\bin\Release
+
 
 
 
