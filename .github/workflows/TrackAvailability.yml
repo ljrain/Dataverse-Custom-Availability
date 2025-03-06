@@ -1,0 +1,23 @@
+name: Download and Run Tracker
+
+on:
+   workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: windows-latest
+
+    steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v4.1.9
+      with:
+        name: console-app
+        path: .\TrackAvailability.exe 
+
+    - name: List files in the directory
+      run: dir ./console-app
+
+    - name: Run the executable
+      run: |
+        cd ./console-app
+        .\TrackAvailability.exe # Replace with the name of your executable
