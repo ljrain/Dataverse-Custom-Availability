@@ -11,8 +11,8 @@ jobs:
     - name: Download artifact
       uses: actions/download-artifact@v4.1.9
       with:
-        name: console-app
-        path: .\TrackAvailability.exe 
+         name: TrackAvailability
+         path: D:\a\DataverseAppInsightsTrackAvailability\DataverseAppInsightsTrackAvailability\bin\Release
 
     - name: List files in the directory
       run: dir ./console-app
