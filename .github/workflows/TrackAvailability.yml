@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - name: Download artifact
-      uses: actions/download-artifact@v4.6.1
+      uses: actions/download-artifact@v4
       with:
          name: TrackAvailability
          path: D:\a\DataverseAppInsightsTrackAvailability\DataverseAppInsightsTrackAvailability\bin\Release
