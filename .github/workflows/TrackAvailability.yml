@@ -1,4 +1,4 @@
-name: Download and Run Tracker
+name: Track Availability
 
 on:
    workflow_dispatch:
