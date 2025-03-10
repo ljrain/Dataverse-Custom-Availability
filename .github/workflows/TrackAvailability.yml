@@ -22,5 +22,4 @@ jobs:
          $url = "https://api.github.com/repos/ljrain/DataverseAppInsightsTrackAvailability/actions/workflows"
          Write-Host $url
          $workflows = curl -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ github.token }}" -H "X-GitHub-Api-Version: 2022-11-28" $url
-         Write-Host #workflows|ConvertFrom-Json
-         
+         Write-Host #workflows
