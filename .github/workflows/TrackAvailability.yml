@@ -16,8 +16,11 @@ jobs:
     runs-on: windows-lates
     
     steps:
-      - name: Download a Build Artifact
-        uses: actions/download-artifact@v4.1.9
-        with:
-          name: TrackAvailability
-    
+      - name: Dynamically GetArtifact Info
+      - shell: pwsh
+      - run: |
+         $url = "https://api.github.com/repos/ljrain/DataverseAppInsightsTrackAvailability/actions/workflows"
+         Write-Host $url
+         $workflows = curl -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ github.token }}" -H "X-GitHub-Api-Version: 2022-11-28" $url
+         Write-Host #workflows|ConvertFrom-Json
+         
