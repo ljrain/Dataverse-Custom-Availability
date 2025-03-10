@@ -1,25 +1,29 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-name: Track Availability
+name: Get Recent Artifact
 
 on:
-   workflow_dispatch:
-
-permissions:
-  contents: read
+  workflow_dispatch: # Allows manual triggering
 
 jobs:
-   build:
-    runs-on: windows-lates
-    
+  get-recent-artifact:
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Dynamically GetArtifact Info
-      - shell: pwsh
-      - run: |
-         $url = "https://api.github.com/repos/ljrain/DataverseAppInsightsTrackAvailability/actions/workflows"
-         Write-Host $url
-         $workflows = curl -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ github.token }}" -H "X-GitHub-Api-Version: 2022-11-28" $url
-         Write-Host #workflows
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: List artifacts
+      id: list-artifacts
+      run: |
+        curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+        "https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts" \
+        > artifacts.json
+
+    - name: Get most recent artifact
+      id: get-recent-artifact
+      run: |
+        recent_artifact_url=$(jq -r '.artifacts | sort_by(.created_at) | last | .archive_download_url' artifacts.json)
+        echo "::set-output name=artifact_url::$recent_artifact_url"
+
+    - name: Download artifact
+      run: |
+        curl -L -o artifact.zip -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "${{ steps.get-recent-artifact.outputs.artifact_url }}"
