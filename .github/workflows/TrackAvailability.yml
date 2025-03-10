@@ -14,7 +14,7 @@ jobs:
       - name: List artifacts
         id: list-artifacts
         run: |
-          curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/ljrain/DataverseAppInsightsTrackAvailability/actions/runs/13769377136/artifacts" > artifacts.json
+          curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/ljrain/DataverseAppInsightsTrackAvailability/actions/runs/13771121330/artifacts" > artifacts.json
 
       - name: Get most recent artifact
         id: get-recent-artifact
@@ -31,5 +31,6 @@ jobs:
 
     # https://github.com/ljrain/DataverseAppInsightsTrackAvailability/actions/runs/13769377136/workflow
     # https://github.com/ljrain/DataverseAppInsightsTrackAvailability/actions/runs/13769377136
+    ## 13771121330
 
     
