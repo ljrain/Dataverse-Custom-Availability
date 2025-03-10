@@ -13,7 +13,7 @@ jobs:
 
       - name: Dynamically Get Artifact Info
       - shell: pwsh
-        run: |
+      - run: |
           $wfId = "13771121330"
           $url = "https://api.github.com/repos/ljrain/DataverseAppInsightsTrackAvailability/actions/workflows/$wfId/runs"
           Write-Host $url
@@ -30,6 +30,11 @@ jobs:
           Write-Host "adding artifact name and wfRun id to env vars $artifactName for run $wfRunId"
           echo "ARTIFACT_NAME=$artifactName" >> $env:GITHUB_ENV
           echo "RUN_ID=$wfRunId" >> $env:GITHUB_ENV
+
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
 
     # https://github.com/ljrain/DataverseAppInsightsTrackAvailability/actions/runs/13769377136/workflow
     # https://github.com/ljrain/DataverseAppInsightsTrackAvailability/actions/runs/13769377136
