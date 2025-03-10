@@ -8,23 +8,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: List artifacts
+        id: list-artifacts
+        run: |
+          curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/ljrain/DataverseAppInsightsTrackAvailability/actions/runs/13769377136/artifacts" > artifacts.json
+
+      - name: Get most recent artifact
+        id: get-recent-artifact
+        run: |
+          recent_artifact_url=$(jq -r '.artifacts | sort_by(.created_at) | last | .archive_download_url' artifacts.json)
+          echo "::set-output name=artifact_url::$recent_artifact_url"
+
+      - name: Download artifact
+        run: |
+          curl -L -o artifact.zip -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "${{ steps.get-recent-artifact.outputs.artifact_url }}"
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
     # https://github.com/ljrain/DataverseAppInsightsTrackAvailability/actions/runs/13769377136/workflow
     # https://github.com/ljrain/DataverseAppInsightsTrackAvailability/actions/runs/13769377136
 
-    - name: List artifacts
-      id: list-artifacts
-      run: |
-        curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/${{ github.repository }}/actions/workflows/13769377136/runs" > artifacts.json
-
-    - name: Get most recent artifact
-      id: get-recent-artifact
-      run: |
-        recent_artifact_url=$(jq -r '.artifacts | sort_by(.created_at) | last | .archive_download_url' artifacts.json)
-        echo "::set-output name=artifact_url::$recent_artifact_url"
-
-    - name: Download artifact
-      run: |
-        curl -L -o artifact.zip -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "${{ steps.get-recent-artifact.outputs.artifact_url }}"
+    
