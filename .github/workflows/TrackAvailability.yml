@@ -17,8 +17,7 @@ jobs:
     - name: List artifacts
       id: list-artifacts
       run: |
-        curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-        "https://api.github.com/repos/${{ github.repository }}/actions/runs/13769377136/artifacts"
+        curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/${{ github.repository }}/actions/workflows/13769377136/runs" > artifacts.json
 
     - name: Get most recent artifact
       id: get-recent-artifact
