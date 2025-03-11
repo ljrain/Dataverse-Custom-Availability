@@ -45,7 +45,7 @@ jobs:
           run-id: ${{ env.RUN_ID }}
 
       - name: Unzip Artifact
-        run: unzip "${{ github.workspace }}/${{ env.ARTIFACT_NAME }}" -d ./artifact
+        run: unzip ${{ github.workspace }}/${{ env.ARTIFACT_NAME }} -d ./artifact
 
 
         
