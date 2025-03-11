@@ -47,10 +47,8 @@ jobs:
       - name: Unzip Artifact
         run: unzip "${{ github.workspace }}/${{ env.ARTIFACT_NAME }}" -d ./artifact
 
-      - name: Find the executable
+      - name: Find and Execute Tracker
         id: find-executable
-      # Add additional options to the MSBuild command line here (like platform or verbosity level).
-      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
         run: |
            cd ./artifact
            dir
