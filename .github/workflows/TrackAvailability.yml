@@ -47,12 +47,7 @@ jobs:
       - name: Unzip Artifact
         run: unzip "${{ github.workspace }}/${{ env.ARTIFACT_NAME }}" -d ./artifact
 
-      - name: Find and Execute Tracker
-        id: find-executable
-        run: |
-           cd ./artifact
-           dir
-           .\TrackAvailability.exe
+
         
 
     # https://github.com/ljrain/DataverseAppInsightsTrackAvailability/actions/runs/13769377136/workflow
