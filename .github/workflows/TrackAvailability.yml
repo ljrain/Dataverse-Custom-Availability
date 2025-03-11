@@ -36,13 +36,13 @@ jobs:
           echo "ARTIFACT_NAME=$artifactName" >> $env:GITHUB_ENV
           echo "RUN_ID=$wfRunId" >> $env:GITHUB_ENV
 
-      - name: Download Artifact
-      - uses: actions/download-artifact@v4
-        with:
-          github-token: ${{ github.token }}
-          name: ${{ env.ARTIFACT_NAME }}
-          path: "${{ github.workspace }}/${{ env.ARTIFACT_NAME }}"
-          run-id: ${{ env.RUN_ID }}
+      #- name: Download Artifact
+      #- uses: actions/download-artifact@v4
+      #  with:
+      #    github-token: ${{ github.token }}
+      #    name: ${{ env.ARTIFACT_NAME }}
+      #    path: "${{ github.workspace }}/${{ env.ARTIFACT_NAME }}"
+      #    run-id: ${{ env.RUN_ID }}
 
       #- name: Unzip Artifact
       #  run: unzip ${{ github.workspace }}/${{ env.ARTIFACT_NAME }} -d ./artifact
