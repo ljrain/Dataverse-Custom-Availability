@@ -1,16 +1,16 @@
 name: Get Recent Artifact
 
+permissions:
+  actions: read
+  contents: read
+  id-token: write
+
 on:
   workflow_dispatch: # Allows manual triggering
+  
 jobs:
   get-recent-artifact:
     runs-on: ubuntu-latest
-
-    permissions:
-      actions: read
-      contents: read
-      id-token: write
-
 
     steps:
       - name: Checkout repository
