@@ -37,7 +37,7 @@ jobs:
           echo "RUN_ID=$wfRunId" >> $env:GITHUB_ENV
 
       - name: Download Artifact
-      - uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v4
         with:
           github-token: ${{ github.token }}
           name: ${{ $artifactName }}
