@@ -42,7 +42,7 @@ jobs:
           github-token: ${{ github.token }}
           name: $artifactName
           path: ${{ github.workspace }}/$artifactName
-          run-id: ${{ env.RUN_ID }}
+          run-id: $wfRunId
 
       #- name: Unzip Artifact
       #  run: unzip ${{ github.workspace }}/${{ env.ARTIFACT_NAME }} -d ./artifact
