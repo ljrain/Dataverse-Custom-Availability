@@ -42,12 +42,14 @@ jobs:
         with:
           github-token: ${{ github.token }}
           name: ${{ env.ARTIFACT_NAME }}
-          path: ${{ github.workspace }}/$artifactName
+          path: ${{ github.workspace }}/${{ env.ARTIFACT_NAME }} 
           run-id: ${{ env.RUN_ID }}
 
       - name: Test Download Path
         shell: pwsh
         run: |
+          dir
+          cd ${{ env.ARTIFACT_NAME }} 
           dir
 
       - name: Unzip Artifact
