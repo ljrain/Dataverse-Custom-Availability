@@ -47,12 +47,6 @@ jobs:
           path: ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip 
           run-id: ${{ env.RUN_ID }}
 
-      - name: Extract Artifact
-        uses: actions/toolkit@v2
-        with:
-          path: ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip
-          dest: ${{ github.workspace }}/TrackAvailability
-
       - name: Unzip Artifact
         run: |
           unzip ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip -d ${{ github.workspace }}/TrackAvailability
@@ -65,13 +59,6 @@ jobs:
           dir *.exe
           ${{ env.ARTIFACT_NAME }}.exe          
           
-
-#      - name: Test Download Path
-#        shell: pwsh
-#        run: |
-#          cd ${{ env.ARTIFACT_NAME }} 
-#          chmod +x ${{ env.ARTIFACT_NAME }}.exe
-#          ./${{ env.ARTIFACT_NAME }}.exe
 
 
 
