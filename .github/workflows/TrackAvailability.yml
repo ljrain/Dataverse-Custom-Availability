@@ -51,7 +51,7 @@ jobs:
           cd ${{ env.ARTIFACT_NAME }} 
           dir *.exe
           chmod +x TrackAvailability.exe
-          ./TrackAvailability.exe
+          /home/runner/work/DataverseAppInsightsTrackAvailability/DataverseAppInsightsTrackAvailability/TrackAvailability/TrackAvailability.exe
 
       #- name: Unzip Artifact
       #  run: unzip ${{ github.workspace }}/${{ env.ARTIFACT_NAME }} -d ./${{ env.ARTIFACT_NAME }} 
