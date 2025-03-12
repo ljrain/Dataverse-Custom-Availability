@@ -50,7 +50,7 @@ jobs:
       - name: Unzip Artifact
         shell: pwsh
         run: | 
-          Expand-Archive -Path ${{ env.ARTIFACT_NAME }}.zip -DestinationPat TrackAvailability
+          Expand-Archive ${{ env.ARTIFACT_NAME }}.zip -DestinationPath TrackAvailability
 
 
       #- name: Unzip Artifact
