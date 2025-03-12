@@ -6,10 +6,8 @@ permissions:
   id-token: write
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch: # Allows manual triggering
+   schedule:
+   - cron: '*/30 * * * *'  # Every 30 minutes
   
 jobs:
   get-recent-artifact:
