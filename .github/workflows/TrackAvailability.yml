@@ -47,9 +47,20 @@ jobs:
           path: ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip 
           run-id: ${{ env.RUN_ID }}
 
-      - name: Unzip Artifact
-        run: |
-          unzip ${{ env.ARTIFACT_NAME }}.zip -d ${{ github.workspace }}/TrackAvailability
+      - name: Zip extract
+        # You may pin to the exact commit or the version.
+        # uses: hoatruongdev09/extract-zip-github-action@dd1eb7883f2792b2baeb525abd0471439e1c6a4e
+        uses: hoatruongdev09/extract-zip-github-action@v1.2
+        with:
+          # zip file path
+          input-path: ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip 
+          # extract folder path
+          output-path: ${{ env.ARTIFACT_NAME }}
+          
+
+#      - name: Unzip Artifact
+#        run: |
+#          unzip ${{ env.ARTIFACT_NAME }}.zip -d ${{ github.workspace }}/TrackAvailability
 
       - name: Verify Artifact Presence
         shell: pwsh
