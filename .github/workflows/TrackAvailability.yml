@@ -48,8 +48,15 @@ jobs:
           run-id: ${{ env.RUN_ID }}
 
       - name: Unzip Artifact
-        run: |
-          unzip -o ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip -d ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}
+        shell: pwsh
+        run: | 
+          Expand-Archive -Path ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip -DestinationPat ${{ github.workspace }}/TrackAvailability
+
+
+      #- name: Unzip Artifact
+      #  run: |
+      #  
+      #    unzip -o ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip -d ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}
 
       - name: Verify Artifact Presence
         shell: pwsh
