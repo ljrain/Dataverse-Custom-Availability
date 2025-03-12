@@ -47,11 +47,16 @@ jobs:
           path: ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip 
           run-id: ${{ env.RUN_ID }}
 
-      - name: Unzip Artifact
-        shell: pwsh
-        run: | 
-          Expand-Archive ${{ env.ARTIFACT_NAME }}.zip -DestinationPath TrackAvailability
+    #  - name: Unzip Artifact
+    #    shell: pwsh
+    #    run: | 
+    #      Expand-Archive ${{ env.ARTIFACT_NAME }}.zip -DestinationPath TrackAvailability
 
+      - name: Extract Artifact
+        uses: actions/toolkit@v2
+        with:
+          path: ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip
+          dest: ${{ github.workspace }}/TrackAvailability
 
       #- name: Unzip Artifact
       #  run: |
