@@ -49,7 +49,7 @@ jobs:
 
       - name: Unzip Artifact
         run: |
-          unzip ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip -d ${{ github.workspace }}/TrackAvailability
+          unzip ${{ env.ARTIFACT_NAME }}.zip -d ${{ github.workspace }}/TrackAvailability
 
       - name: Verify Artifact Presence
         shell: pwsh
