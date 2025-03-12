@@ -45,6 +45,11 @@ jobs:
           path: ${{ github.workspace }}/$artifactName
           run-id: ${{ env.RUN_ID }}
 
+      - name: Test Download Path
+        shell: pwsh
+        run: |
+          dir
+
       - name: Unzip Artifact
         run: unzip ${{ github.workspace }}/${{ env.ARTIFACT_NAME }} -d ./${{ env.ARTIFACT_NAME }} 
 
