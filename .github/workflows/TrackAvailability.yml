@@ -38,7 +38,6 @@ jobs:
           Write-Host "adding artifact name and wfRun id to env vars $artifactName for run $wfRunId"
           echo "ARTIFACT_NAME=$artifactName" >> $env:GITHUB_ENV
           echo "RUN_ID=$wfRunId" >> $env:GITHUB_ENV
-          dir
 
       - name: Download Artifact
         uses: actions/download-artifact@v4
@@ -51,10 +50,7 @@ jobs:
       - name: Unzip
         shell: pwsh
         run: |
-          dir
-          cd ${{ env.ARTIFACT_NAME }}.zip
-          Expand-Archive -LiteralPath ${{ env.ARTIFACT_NAME }}.zip -Force
-          dir
+          Expand-Archive -Path ${{ env.ARTIFACT_NAME }}.zip -Force
 
       - name: Verify Artifact Presence
         shell: pwsh
