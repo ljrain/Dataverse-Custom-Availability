@@ -47,21 +47,13 @@ jobs:
           path: ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip 
           run-id: ${{ env.RUN_ID }}
 
-      - name: Zip extract
-        # You may pin to the exact commit or the version.
-        # uses: hoatruongdev09/extract-zip-github-action@dd1eb7883f2792b2baeb525abd0471439e1c6a4e
-        uses: hoatruongdev09/extract-zip-github-action@v1.2
-        with:
-          # zip file path
-          input-path: ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip 
-          # extract folder path
-          output-path: ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}
-          
+      - name: Install 7z
+        run: sudo apt-get install -y p7zip-full
 
-#      - name: Unzip Artifact
-#        run: |
-#          unzip ${{ env.ARTIFACT_NAME }}.zip -d ${{ github.workspace }}/TrackAvailability
-
+      - name: Unzip Artifact
+        run: |
+          7z x ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip -o${{ github.workspace }}/TrackAvailability
+      
       - name: Verify Artifact Presence
         shell: pwsh
         run: |
