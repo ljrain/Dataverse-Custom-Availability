@@ -1,0 +1,77 @@
+name: Get Recent Artifact
+
+permissions:
+  actions: read
+  contents: read
+  id-token: write
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allows manual triggering
+  
+jobs:
+  get-recent-artifact:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Dynamically Get Artifact Info
+        run: |
+          python -c "
+          import os
+          import requests
+          import json
+
+          wf_id = '148102141'
+          url = f'https://api.github.com/repos/ljrain/DataverseAppInsightsTrackAvailability/actions/workflows/{wf_id}/runs'
+          headers = {
+              'Accept': 'application/vnd.github+json',
+              'Authorization': f'Bearer {os.getenv('GITHUB_TOKEN')}',
+              'X-GitHub-Api-Version': '2022-11-28'
+          }
+          response = requests.get(url, headers=headers)
+          response.raise_for_status()
+          runs = response.json()
+          wf_run_id = runs['workflow_runs'][0]['id']
+          artifact_url = runs['workflow_runs'][0]['artifacts_url']
+          response = requests.get(artifact_url, headers=headers)
+          response.raise_for_status()
+          artifacts = response.json()
+          artifact_name = artifacts['artifacts'][0]['name']
+          print(f'::set-env name=ARTIFACT_NAME::{artifact_name}')
+          print(f'::set-env name=RUN_ID::{wf_run_id}')
+          "
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          name: ${{ env.ARTIFACT_NAME }}
+          path: ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip 
+          run-id: ${{ env.RUN_ID }}
+
+      - name: Unzip Artifact
+        run: |
+          unzip ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip -d ${{ github.workspace }}/TrackAvailability
+
+      - name: Verify Artifact Presence
+        shell: pwsh
+        run: |
+          dir *.exe
+          cd ${{ env.ARTIFACT_NAME }} 
+          dir *.exe
+          ${{ env.ARTIFACT_NAME }}.exe
