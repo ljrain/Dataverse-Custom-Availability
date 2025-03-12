@@ -56,10 +56,13 @@ jobs:
           path: ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip 
           run-id: ${{ env.RUN_ID }}
 
+      - name: Install 7z
+        run: sudo apt-get install -y p7zip-full
+
       - name: Unzip Artifact
         run: |
-          unzip ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip -d ${{ github.workspace }}/TrackAvailability
-
+          7z x ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip -o${{ github.workspace }}/TrackAvailability
+      
       - name: Verify Artifact Presence
         shell: pwsh
         run: |
