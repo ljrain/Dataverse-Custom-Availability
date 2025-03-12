@@ -55,7 +55,7 @@ jobs:
           # zip file path
           input-path: ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip 
           # extract folder path
-          output-path: ${{ env.ARTIFACT_NAME }}
+          output-path: ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}
           
 
 #      - name: Unzip Artifact
