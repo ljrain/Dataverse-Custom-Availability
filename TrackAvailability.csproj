@@ -182,6 +182,9 @@
     <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".github\workflows\BuildPublishRunTrackAvailablity.yml" />
+    <None Include=".github\workflows\DataverseWhoAmI.yml" />
+    <None Include=".github\workflows\TrackAvailability.yml" />
     <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

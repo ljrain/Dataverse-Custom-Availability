@@ -1,23 +1,69 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 name: Track Availability
 
-on:
-   workflow_dispatch:
-
 permissions:
+  actions: read
   contents: read
+  id-token: write
 
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allows manual triggering
+  
 jobs:
-   build:
-    runs-on: windows-lates
-    
+  get-recent-artifact:
+    runs-on: ubuntu-latest
+
+    env:
+      GITHUB_API_VERSION: 2022-11-28
+      WF_ID: "148102141"
+      API_URL: "https://api.github.com/repos/ljrain/DataverseAppInsightsTrackAvailability/actions/workflows/${{ env.WF_ID }}/runs"
+
     steps:
-      - name: Download a Build Artifact
-        uses: actions/download-artifact@v4.1.9
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Dynamically Get Artifact Info
+        shell: pwsh
+        run: |
+          try {
+            $url = "${{ env.API_URL }}"
+            Write-Host $url
+            $runs = curl -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ github.token }}" -H "X-GitHub-Api-Version: ${{ env.GITHUB_API_VERSION }}" $url
+            Write-Host "$runs"
+            $runsObj = $runs | ConvertFrom-Json
+            Write-Host "$runsObj and $($runsObj.GetType()) and $($runsObj.workflow_runs)"
+            # Get the most recent run - GH api defaults list sorted reverse chronologically (index 0)
+            $wfRunId = $runsObj.workflow_runs[0].id
+            $artifactUrl = $runsObj.workflow_runs[0].artifacts_url
+            $artifacts = curl -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ github.token }}" -H "X-GitHub-Api-Version: ${{ env.GITHUB_API_VERSION }}" "$artifactUrl"
+            $artifactsObj = $artifacts | ConvertFrom-Json
+            $artifactName = $artifactsObj.artifacts[0].name
+            Write-Host "adding artifact name and wfRun id to env vars $artifactName for run $wfRunId"
+            echo "ARTIFACT_NAME=$artifactName" >> $env:GITHUB_ENV
+            echo "RUN_ID=$wfRunId" >> $env:GITHUB_ENV
+          } catch {
+            Write-Error "Failed to get artifact info: $_"
+            exit 1
+          }
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
         with:
-          name: TrackAvailability
-    
+          github-token: ${{ github.token }}
+          name: ${{ env.ARTIFACT_NAME }}
+          path: ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip 
+          run-id: ${{ env.RUN_ID }}
+
+      - name: Unzip Artifact
+        run: |
+          unzip ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip -d ${{ github.workspace }}/TrackAvailability
+
+      - name: Verify Artifact Presence
+        shell: pwsh
+        run: |
+          dir *.exe
+          cd ${{ env.ARTIFACT_NAME }} 
+          dir *.exe
+          ${{ env.ARTIFACT_NAME }}.exe
