@@ -50,7 +50,9 @@ jobs:
       - name: Unzip
         shell: pwsh
         run: |
-          Expand-Archive -Path ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip -DestinationPath ${{ github.workspace }}/${{ env.ARTIFACT_NAME }} -Force
+          dir
+          Expand-Archive -LiteralPath ${{ env.ARTIFACT_NAME }}.zip -Force
+          dir
 
       - name: Verify Artifact Presence
         shell: pwsh
