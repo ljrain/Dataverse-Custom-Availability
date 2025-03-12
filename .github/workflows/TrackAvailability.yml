@@ -49,19 +49,18 @@ jobs:
 
       - name: Unzip Artifact
         run: |
-          dir *.zip
           unzip ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip -d ${{ github.workspace }}/TrackAvailability
-          dir *.exe
-          cd TrackAvailability
-          TrackAvailability.exe
+
           
 # TrackAvailability.zip
 
-#      - name: Verify Artifact Presence
-#        shell: pwsh
-#        run: |
-#          cd ${{ env.ARTIFACT_NAME }} 
-#          dir *.exe
+      - name: Verify Artifact Presence
+        shell: pwsh
+        run: |
+          dir *.exe
+          cd ${{ env.ARTIFACT_NAME }} 
+          dir *.exe
+          TrackAvailability.exe          
           
 
 #      - name: Test Download Path
