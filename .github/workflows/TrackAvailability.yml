@@ -57,7 +57,7 @@ jobs:
         run: |
           cd ${{ env.ARTIFACT_NAME }} 
           dir *.exe
-          exec ${{ env.ARTIFACT_NAME }}.exe 
+          
 
       - name: Test Download Path
         shell: pwsh
