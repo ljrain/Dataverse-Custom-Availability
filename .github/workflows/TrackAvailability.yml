@@ -50,7 +50,7 @@ jobs:
       - name: Unzip Artifact
         shell: pwsh
         run: | 
-          Expand-Archive -Path ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip -DestinationPat ${{ github.workspace }}/TrackAvailability
+          Expand-Archive -Path ${{ env.ARTIFACT_NAME }}.zip -DestinationPat TrackAvailability
 
 
       #- name: Unzip Artifact
