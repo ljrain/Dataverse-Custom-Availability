@@ -48,9 +48,8 @@ jobs:
       - name: Test Download Path
         shell: pwsh
         run: |
-          dir
           cd ${{ env.ARTIFACT_NAME }} 
-          dir
+          dir *.exe
           ${{ env.ARTIFACT_NAME }}.exe 
 
       #- name: Unzip Artifact
