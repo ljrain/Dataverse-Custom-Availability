@@ -36,6 +36,7 @@ jobs:
           echo "ARTIFACT_NAME=$artifactName" >> $env:GITHUB_ENV
           echo "RUN_ID=$wfRunId" >> $env:GITHUB_ENV
 
+      # https://github.com/ljrain/DataverseAppInsightsTrackAvailability/actions/runs/13814796208/artifacts/2738564366
       - name: Download Artifact
         uses: actions/download-artifact@v4
         with:
@@ -44,8 +45,8 @@ jobs:
           path: ${{ github.workspace }}/$artifactName
           run-id: ${{ env.RUN_ID }}
 
-      #- name: Unzip Artifact
-      #  run: unzip ${{ github.workspace }}/${{ env.ARTIFACT_NAME }} -d ./artifact
+      - name: Unzip Artifact
+        run: unzip ${{ github.workspace }}/${{ env.ARTIFACT_NAME }} -d ./artifact
 
 
         
