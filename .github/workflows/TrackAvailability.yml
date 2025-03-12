@@ -13,7 +13,7 @@ on:
   
 jobs:
   get-recent-artifact:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout repository
@@ -47,13 +47,11 @@ jobs:
           path: ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip 
           run-id: ${{ env.RUN_ID }}
 
-      - name: Install 7z
-        run: sudo apt-get install -y p7zip-full
-
-      - name: Unzip Artifact
+      - name: Unzip
+        shell: pwsh
         run: |
-          7z x ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip -o${{ github.workspace }}/TrackAvailability
-      
+          Expand-Archive -Path ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip -DestinationPath ${{ github.workspace }}/${{ env.ARTIFACT_NAME }} -Force
+
       - name: Verify Artifact Presence
         shell: pwsh
         run: |
