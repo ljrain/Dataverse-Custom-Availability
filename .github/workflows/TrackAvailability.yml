@@ -59,7 +59,7 @@ jobs:
         shell: pwsh
         run: |
           dir *.exe
-          & ${{ env.ARTIFACT_NAME }}.exe          
+          .\${{ env.ARTIFACT_NAME }}.exe          
           
 
 
