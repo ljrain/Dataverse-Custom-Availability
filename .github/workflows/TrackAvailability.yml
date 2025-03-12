@@ -50,7 +50,8 @@ jobs:
         run: |
           cd ${{ env.ARTIFACT_NAME }} 
           dir *.exe
-          ${{ env.ARTIFACT_NAME }}.exe 
+          chmod +x TrackAvailability.exe
+          ./TrackAvailability.exe
 
       #- name: Unzip Artifact
       #  run: unzip ${{ github.workspace }}/${{ env.ARTIFACT_NAME }} -d ./${{ env.ARTIFACT_NAME }} 
