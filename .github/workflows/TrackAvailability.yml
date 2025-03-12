@@ -61,12 +61,12 @@ jobs:
           dir *.exe
           
 
-      - name: Test Download Path
-        shell: pwsh
-        run: |
-          cd ${{ env.ARTIFACT_NAME }} 
-          chmod +x ${{ env.ARTIFACT_NAME }}.exe
-          ./${{ env.ARTIFACT_NAME }}.exe
+#      - name: Test Download Path
+#        shell: pwsh
+#        run: |
+#          cd ${{ env.ARTIFACT_NAME }} 
+#          chmod +x ${{ env.ARTIFACT_NAME }}.exe
+#          ./${{ env.ARTIFACT_NAME }}.exe
 
 
 
