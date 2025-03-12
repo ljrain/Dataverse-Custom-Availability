@@ -51,9 +51,10 @@ jobs:
           dir
           cd ${{ env.ARTIFACT_NAME }} 
           dir
+          ${{ env.ARTIFACT_NAME }}exe 
 
-      - name: Unzip Artifact
-        run: unzip ${{ github.workspace }}/${{ env.ARTIFACT_NAME }} -d ./${{ env.ARTIFACT_NAME }} 
+      #- name: Unzip Artifact
+      #  run: unzip ${{ github.workspace }}/${{ env.ARTIFACT_NAME }} -d ./${{ env.ARTIFACT_NAME }} 
 
 
         
