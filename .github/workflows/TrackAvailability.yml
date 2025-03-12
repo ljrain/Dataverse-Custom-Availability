@@ -47,11 +47,9 @@ jobs:
           path: ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip 
           run-id: ${{ env.RUN_ID }}
 
-      - name: Unzip Artifact
-        run: |
-          dir
-          cd ${{ env.ARTIFACT_NAME }} 
-          unzip ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}/*.zip -d ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}
+      #- name: Unzip Artifact
+      #  run: |
+      #    unzip ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}/*.zip -d ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}
           
 
       - name: Verify Artifact Presence
@@ -59,6 +57,7 @@ jobs:
         run: |
           cd ${{ env.ARTIFACT_NAME }} 
           dir *.exe
+          exec ${{ env.ARTIFACT_NAME }}.exe 
 
       - name: Test Download Path
         shell: pwsh
