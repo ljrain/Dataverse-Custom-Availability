@@ -48,18 +48,16 @@ jobs:
           #path: ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}
           run-id: ${{ env.RUN_ID }}
 
-      - name: Unzip
-        shell: pwsh
-        run: |
-          dir
-          Expand-Archive -Path ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip -Force
-          dir
+#      - name: Unzip
+#        shell: pwsh
+#        run: |
+#          dir
+#          Expand-Archive -Path ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip -Force
+#          dir
 
       - name: Verify Artifact Presence
         shell: pwsh
         run: |
-          dir *.exe
-          cd ${{ env.ARTIFACT_NAME }} 
           dir *.exe
           & ${{ env.ARTIFACT_NAME }}.exe          
           
