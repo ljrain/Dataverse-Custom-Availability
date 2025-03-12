@@ -44,6 +44,11 @@ jobs:
           path: ${{ github.workspace }}/${{ env.ARTIFACT_NAME }} 
           run-id: ${{ env.RUN_ID }}
 
+      - name: Unzip Artifact
+        run: |
+          unzip ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}/*.zip -d ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}
+          
+
       - name: Verify Artifact Presence
         shell: pwsh
         run: |
