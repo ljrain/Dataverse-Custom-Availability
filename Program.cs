@@ -20,29 +20,39 @@ namespace TrackAvailability
                 return;
             }
             
-            string dvConnectionString = args[0];
-            string aiConnectionString = args[1];
+            string dvConnectionString = args[0]; // Dataverse Connection String
+            string aiConnectionString = args[1]; // Application Insights Connection String
 
             #region "Custom Tests"
 
-            // ********* TEST 1
+            #region ********* TEST 1
+            // WhoAmI Availability Test
+            // Logs into Dataverse, checks serviceClient.IsReady and returns the friendly name of the connected org.
+            // This is a simple test to check if the connection to Dataverse is available.
+
             DateTime startTime = DateTime.Now;
             AvailabilityTelemetry data = Program.WhoAmI(dvConnectionString);
             data.Duration = DateTime.Now.Subtract(startTime);
 
             Program.TrackCustomAvailability(aiConnectionString, data);
+            #endregion
 
-            // ********* TEST 2
+            #region ********* TEST 2
+            // CreateRemoveSampleAccount Availability Test
+            // Logs into Dataverse, creates a sample account, and then removes it.
+
             startTime = DateTime.Now;
             data = Program.CreateRemoveSampleAccount(dvConnectionString);
             data.Duration = DateTime.Now.Subtract(startTime);
             Program.TrackCustomAvailability(aiConnectionString, data);
+            #endregion
 
             #endregion
 
             Console.WriteLine("Availability tracked successfully.");
         }
 
+        #region "Custom Test Routines"
         private static AvailabilityTelemetry CreateRemoveSampleAccount(string connectionString)
         {
             AvailabilityTelemetry availabilityTelemetry = new AvailabilityTelemetry();
@@ -92,7 +102,7 @@ namespace TrackAvailability
                     // Execute the request
                     WhoAmIResponse whoAmIResponse = (WhoAmIResponse)serviceClient.Execute(whoAmIRequest);
                     availabilityTelemetry.Success = serviceClient.IsReady;
-                    availabilityTelemetry.Message = serviceClient.ConnectedOrgFriendlyName;
+                    availabilityTelemetry.Message = String.Format("Connected to {0}", serviceClient.ConnectedOrgFriendlyName);
 
                     // Output the results
                     Console.WriteLine("Connected to {0} {1}", serviceClient.ConnectedOrgFriendlyName, serviceClient.IsReady);
@@ -105,7 +115,8 @@ namespace TrackAvailability
             }
             return (availabilityTelemetry);
         }
-
+        #endregion
+        // TrackCustomAvailabiltiy - This method tracks the availability of a custom test in Application Insights.
         private static bool TrackCustomAvailability(string aiConnectionString, AvailabilityTelemetry data)
         {
             bool bResult = false;
