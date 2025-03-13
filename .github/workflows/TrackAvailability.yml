@@ -46,18 +46,16 @@ jobs:
           #path: ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}
           run-id: ${{ env.RUN_ID }}
 
-#      - name: Unzip
-#        shell: pwsh
-#        run: |
-#          dir
-#          Expand-Archive -Path ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip -Force
-#          dir
+      - name: Set up environment variables
+        run: |
+          echo "DVCONNECTIONSTRING=${{ secrets.DVCONNECTIONSTRING }}" >> $GITHUB_ENV
+          echo "AICONNECTIONSTRING=${{ secrets.AICONNECTIONSTRING }}" >> $GITHUB_ENV      
 
       - name: Verify Artifact Presence
         shell: pwsh
         run: |
           dir *.exe
-          .\${{ env.ARTIFACT_NAME }}.exe ${{ secret.dvConnectionString }} ${{ secret.aiConnectionString }}          
+          .\${{ env.ARTIFACT_NAME }}.exe  $DVCONNECTIONSTRING $AICONNECTIONSTRING       
           
 
     
