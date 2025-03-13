@@ -56,7 +56,7 @@ jobs:
         shell: pwsh
         run: |
           dir *.exe
-          .\${{ env.ARTIFACT_NAME }}.exe  $DVCONNECTIONSTRING $AICONNECTIONSTRING       
+          .\TrackAvailability.exe  $DVCONNECTIONSTRING $AICONNECTIONSTRING       
           
 
     
