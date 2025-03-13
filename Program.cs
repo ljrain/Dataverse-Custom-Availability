@@ -6,6 +6,7 @@ using TrackAvailability.Properties;
 using Microsoft.PowerPlatform.Dataverse.Client;
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
+using Microsoft.IdentityModel.Abstractions;
 
 namespace TrackAvailability
 {
@@ -13,87 +14,62 @@ namespace TrackAvailability
     {
         static void Main(string[] args)
         {
-            DateTime startTime = DateTime.Now;
-            Settings setting = new Settings();
-            string aiConnectionString = setting.AppInsightsConnectionString;
-            string dvConnectionString = setting.DvConnectionString;
+            if (args.Length != 2)
+            {
+                Console.WriteLine("Please provide the connection strings for Dataverse and Application Insights as an argument. (arg 1 = Dataverse, arg 2 App Insights.");
+                return;
+            }
+            
+            string dvConnectionString = args[0];
+            string aiConnectionString = args[1];
 
             #region "Custom Tests"
 
-            // TEST 1
-            AvailabilityTelemetry results = Program.WhoAmI(dvConnectionString);
-            results.Duration = DateTime.Now.Subtract(startTime);
+            // ********* TEST 1
+            DateTime startTime = DateTime.Now;
+            AvailabilityTelemetry data = Program.WhoAmI(dvConnectionString);
+            data.Duration = DateTime.Now.Subtract(startTime);
 
-            TelemetryConfiguration config = new TelemetryConfiguration();
-            config.ConnectionString = aiConnectionString;
-            
-            var telemetryClient = new TelemetryClient(config);
+            Program.TrackCustomAvailability(aiConnectionString, data);
 
-            var data = new AvailabilityTelemetry
-            {
-                Duration = results.Duration,
-                Success = results.Success,
-                Message = results.Message,
-                Name = results.Name,
-                RunLocation = results.RunLocation,
-                Timestamp = DateTimeOffset.UtcNow
-            };
-
-            telemetryClient.TrackAvailability(data);
-            telemetryClient.Flush();
-
-            // TEST 2
+            // ********* TEST 2
             startTime = DateTime.Now;
-            AvailabilityTelemetry results2 = Program.CreateSampleAccount(dvConnectionString);
-            results2.Duration = DateTime.Now.Subtract(startTime);
-
-            telemetryClient.TrackAvailability(results2);
-            telemetryClient.Flush();
+            data = Program.CreateRemoveSampleAccount(dvConnectionString);
+            data.Duration = DateTime.Now.Subtract(startTime);
+            Program.TrackCustomAvailability(aiConnectionString, data);
 
             #endregion
 
             Console.WriteLine("Availability tracked successfully.");
         }
 
-        private static AvailabilityTelemetry CreateSampleAccount(string connectionString)
+        private static AvailabilityTelemetry CreateRemoveSampleAccount(string connectionString)
         {
             AvailabilityTelemetry availabilityTelemetry = new AvailabilityTelemetry();
+            availabilityTelemetry.RunLocation = "GitHub";
+            availabilityTelemetry.Name = "New Account";
+
             using (ServiceClient serviceClient = new ServiceClient(connectionString))
             {
                 if (serviceClient.IsReady)
                 {
-                    // Create the WhoAmI request
-                    Entity accountRec = new Entity("account");
-                    accountRec["name"] = "Test Account";
-                    accountRec["telephone1"] = "1234567890";
+                    // Create New Account request
+                    Entity account = new Entity("account");
+                    account["name"] = "Test Account " + DateTime.Now.ToString("yyyyMMdd-HH");
+                    account["accountnumber"] = DateTime.Now.ToString("yyyyMMdd-HH");
+                    account["telephone1"] = "123-456-7890";
 
-                    try
-                    {
-                        Guid accountId = serviceClient.Create(accountRec);
-                        if(accountId != Guid.Empty)
-                        {
-                            // delete sample account that was created.
-                            serviceClient.Delete("account", accountId);
-                        }
+                    // Execute the request
+                    Guid accountId = serviceClient.Create(account);
+                    availabilityTelemetry.Success = accountId != Guid.Empty;
+                    availabilityTelemetry.Message = String.Format("Created / Removed {0} on {1}", account["name"], serviceClient.ConnectedOrgFriendlyName);
 
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(String.Format("{0} creating account: {1}",ex.GetType().Name, ex.Message));
-                        availabilityTelemetry.Success = false;
-                        availabilityTelemetry.RunLocation = "GitHub";
-                        availabilityTelemetry.Message = "New Account";
-                        availabilityTelemetry.Name = "NewAccount";
-                    }
-                    availabilityTelemetry.Success = true;
-                    availabilityTelemetry.RunLocation = "GitHub";
-                    availabilityTelemetry.Message = "New Account";
-                    availabilityTelemetry.Name = "NewAccount";
-
+                    // Output the results
+                    Console.WriteLine(availabilityTelemetry.Message);
                 }
                 else
                 {
-                    Console.WriteLine("Failed to connect to Dataverse.");
+                    Console.WriteLine("Failed to connect to Dataverse.{0}",serviceClient.LastError);
                     availabilityTelemetry.Success = false;
                 }
             }
@@ -103,6 +79,8 @@ namespace TrackAvailability
         private static AvailabilityTelemetry WhoAmI(string connectionString)
         {
             AvailabilityTelemetry availabilityTelemetry = new AvailabilityTelemetry();
+            availabilityTelemetry.RunLocation = "GitHub";
+            availabilityTelemetry.Name = "WhoAmI";
 
             using (ServiceClient serviceClient = new ServiceClient(connectionString))
             {
@@ -113,24 +91,33 @@ namespace TrackAvailability
 
                     // Execute the request
                     WhoAmIResponse whoAmIResponse = (WhoAmIResponse)serviceClient.Execute(whoAmIRequest);
-
-                    availabilityTelemetry.Success = true;
-                    availabilityTelemetry.RunLocation = "GitHub";
-                    availabilityTelemetry.Message = "Connected";
-                    availabilityTelemetry.Name = "WhoAmI";
+                    availabilityTelemetry.Success = serviceClient.IsReady;
+                    availabilityTelemetry.Message = serviceClient.ConnectedOrgFriendlyName;
 
                     // Output the results
-                    Console.WriteLine("User ID: " + whoAmIResponse.UserId);
-                    Console.WriteLine("Business Unit ID: " + whoAmIResponse.BusinessUnitId);
-                    Console.WriteLine("Organization ID: " + whoAmIResponse.OrganizationId);
+                    Console.WriteLine("Connected to {0} {1}", serviceClient.ConnectedOrgFriendlyName, serviceClient.IsReady);
                 }
                 else
                 {
-                    Console.WriteLine("Failed to connect to Dataverse.");
+                    Console.WriteLine("Failed to connect to Dataverse.{0}", serviceClient.LastError);
                     availabilityTelemetry.Success = false;
                 }
             }
             return (availabilityTelemetry);
+        }
+
+        private static bool TrackCustomAvailability(string aiConnectionString, AvailabilityTelemetry data)
+        {
+            bool bResult = false;
+
+            TelemetryConfiguration config = new TelemetryConfiguration();
+            config.ConnectionString = aiConnectionString;
+
+            var telemetryClient = new TelemetryClient(config);
+            telemetryClient.TrackAvailability(data);
+            telemetryClient.Flush();
+
+            return (bResult);
         }
 
 
