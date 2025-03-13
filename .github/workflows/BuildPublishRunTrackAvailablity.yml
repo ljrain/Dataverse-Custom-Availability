@@ -53,6 +53,8 @@ jobs:
       run: |
          cd D:\a\\Dataverse-Custom-Availability\\Dataverse-Custom-Availability\bin\Release
          dir
+         echo ${{ secrets.dvConnectionString }}
+         echo ${{ secrets.aiConnectionString }}
          .\TrackAvailability.exe ${{ secrets.dvConnectionString }} ${{ secrets.aiConnectionString }}
 
     - name: Publish Artifact
