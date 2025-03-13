@@ -55,7 +55,8 @@ jobs:
          dir
          echo ${{ secrets.dvConnectionString }}
          echo ${{ secrets.aiConnectionString }}
-         .\TrackAvailability.exe ${{ secrets.dvConnectionString }} ${{ secrets.aiConnectionString }}
+         .\TrackAvailability.exe ${{ env.DATAVERSECONNECTIONSTRING }} ${{ env.APPINSIGHTSCONNECTIONSTRING }}
+         
 
     - name: Publish Artifact
       uses: actions/upload-artifact@v4
