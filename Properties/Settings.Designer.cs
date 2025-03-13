@@ -22,29 +22,5 @@ namespace TrackAvailability.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("InstrumentationKey=bf10b4d5-7c38-4d6c-8655-79a409a55663;IngestionEndpoint=https:/" +
-            "/eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediag" +
-            "nostics.monitor.azure.com/;ApplicationId=e700d1b1-4b82-44e7-8825-9151ad34df89")]
-        public string AppInsightsConnectionString {
-            get {
-                return ((string)(this["AppInsightsConnectionString"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("AuthType=ClientSecret;ClientId=70dbbbb5-71bd-45d5-a23b-f23149d30c73;ClientSecret=" +
-            "1F58Q~F8aLc1gZ0MUnCNxypvUUm7fPNhQcq5JbT1;Url=https://ljr-appinsightsdv.crm9.dyna" +
-            "mics.com")]
-        public string DvConnectionString {
-            get {
-                return ((string)(this["DvConnectionString"]));
-            }
-        }
     }
 }
