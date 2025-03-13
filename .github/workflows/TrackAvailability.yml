@@ -1,4 +1,4 @@
-name: Get Recent Artifact
+name: Track Dataverse Availabilty
 
 permissions:
   actions: read
