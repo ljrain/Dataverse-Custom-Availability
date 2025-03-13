@@ -70,6 +70,12 @@ namespace TrackAvailability
                     try
                     {
                         Guid accountId = serviceClient.Create(accountRec);
+                        if(accountId != Guid.Empty)
+                        {
+                            // delete sample account that was created.
+                            serviceClient.Delete("account", accountId);
+                        }
+
                     }
                     catch (Exception ex)
                     {
@@ -79,17 +85,11 @@ namespace TrackAvailability
                         availabilityTelemetry.Message = "New Account";
                         availabilityTelemetry.Name = "NewAccount";
                     }
-                    
-
                     availabilityTelemetry.Success = true;
                     availabilityTelemetry.RunLocation = "GitHub";
                     availabilityTelemetry.Message = "New Account";
                     availabilityTelemetry.Name = "NewAccount";
 
-                    //// Output the results
-                    //Console.WriteLine("User ID: " + whoAmIResponse.UserId);
-                    //Console.WriteLine("Business Unit ID: " + whoAmIResponse.BusinessUnitId);
-                    //Console.WriteLine("Organization ID: " + whoAmIResponse.OrganizationId);
                 }
                 else
                 {
