@@ -42,6 +42,13 @@ namespace TrackAvailability
             telemetryClient.TrackAvailability(data);
             telemetryClient.Flush();
 
+            // TEST 2
+            startTime = DateTime.Now;
+            AvailabilityTelemetry results2 = Program.CreateSampleAccount(dvConnectionString);
+            results2.Duration = DateTime.Now.Subtract(startTime);
+
+            telemetryClient.TrackAvailability(results2);
+            telemetryClient.Flush();
 
             #endregion
 
