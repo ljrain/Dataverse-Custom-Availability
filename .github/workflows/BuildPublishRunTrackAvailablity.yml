@@ -9,7 +9,11 @@ on:
    schedule:
    - cron: '*/30 * * * *'  # Every 30 minutes
    workflow_dispatch:
-
+      inputs:
+         branch:
+           description: 'Branch to check out'
+           required: true
+           default: 'master'
 env:
   # Path to the solution file relative to the root of the project.
   SOLUTION_FILE_PATH: .
