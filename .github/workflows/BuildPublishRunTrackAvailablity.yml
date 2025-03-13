@@ -45,6 +45,11 @@ jobs:
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
+
+    - name: Set up environment variables
+      run: |
+        echo "DVCONNECTIONSTRING=${{ secrets.DVCONNECTIONSTRING }}" >> $GITHUB_ENV
+        echo "AICONNECTIONSTRING=${{ secrets.AICONNECTIONSTRING }}" >> $GITHUB_ENV      
     
     - name: Find the executable
       id: find-executable
@@ -53,9 +58,7 @@ jobs:
       run: |
          cd D:\a\\Dataverse-Custom-Availability\\Dataverse-Custom-Availability\bin\Release
          dir
-         echo ${{ secrets.dvConnectionString }}
-         echo ${{ secrets.aiConnectionString }}
-         .\TrackAvailability.exe ${{ env.DATAVERSECONNECTIONSTRING }} ${{ env.APPINSIGHTSCONNECTIONSTRING }}
+         .\TrackAvailability.exe $DVCONNECTIONSTRING $AICONNECTIONSTRING
          
 
     - name: Publish Artifact
