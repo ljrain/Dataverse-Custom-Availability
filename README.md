@@ -2,7 +2,9 @@
 
 ![image](https://github.com/user-attachments/assets/d5de39ff-8ca3-4f02-820b-813053e63fdc)
 
-This project is a C# Console App that will login to Dataverse and check if the service is available and return the status, user id, organization id and business unit id. There are two components to these project:
+This project contains custom availability tests for Dataverse (Power Platform) components. The tests are implemented as a C# Console Application that uses the `Microsoft.PowerPlatform.Dataverse.Client` NuGet package to connect to Dataverse and check the availability of various components. The application is designed to be run as a GitHub Action on a schedule, and it tracks the availability of the components in Azure Application Insights.
+
+The project cotnains the following components and can be executed locally or on GitHub as an Action. The console application "TrackAvailabilty" performs the tests and records the results to Application Insights. 
 
 1. Console App
 2. GitHub Actions
@@ -20,4 +22,20 @@ This project is a C# Console App that will login to Dataverse and check if the s
 
 [![Get Recent Artifact](https://github.com/ljrain/DataverseAppInsightsTrackAvailability/actions/workflows/TrackAvailability.yml/badge.svg)](https://github.com/ljrain/DataverseAppInsightsTrackAvailability/actions/workflows/TrackAvailability.yml)
 
+# How to Add Tests
+To add tests to the console application, follow these steps:
+1. Open the `Program.cs` file in the console application.
+2. Add a new method for the test you want to implement. The method must return a `AvailabilityTelemetry` with the following information:
+   - Name: The name of the test.
+   - Success: A boolean indicating whether the test was successful or not.
+   - Message: A message describing the result of the test.
+   - Duration: The duration of the test in milliseconds.
+   - Timestamp: The timestamp of the test result.
+3. Call the method in the `Main` method of the console application.
+4. Execute 'TrackCustomAvailability' after the test routine is called.
+5. Build and test from local to verify the custom availablity is logging
+6. Commit and push the changes to the GitHub repository.
 
+NOTE: The following secrets are required to be in place on GitHub.
+- AICONNECTIONSTRING: Contains the connection string to the Application Insights resource.
+- DVCONNECTIONSTRING: Contains the connection string to the Dataverse environment.

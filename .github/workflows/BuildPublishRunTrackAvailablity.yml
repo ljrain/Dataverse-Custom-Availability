@@ -53,7 +53,7 @@ jobs:
       run: |
          cd D:\a\\Dataverse-Custom-Availability\\Dataverse-Custom-Availability\bin\Release
          dir
-         .\TrackAvailability.exe
+         .\TrackAvailability.exe ${{ secret.dvConnectionString }} ${{ secret.aiConnectionString }}
 
     - name: Publish Artifact
       uses: actions/upload-artifact@v4
