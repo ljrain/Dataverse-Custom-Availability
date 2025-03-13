@@ -56,8 +56,8 @@ jobs:
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: |
-         echo ${{ env.GITHUB_WORKSPACE }}
-         echo ${{ env.ARTIFACT_NAME }}
+         echo $DVCONNECTIONSTRING
+         echo $AICONNECTIONSTRING
          cd D:\a\\Dataverse-Custom-Availability\\Dataverse-Custom-Availability\bin\Release
          dir
          .\TrackAvailability.exe $DVCONNECTIONSTRING $AICONNECTIONSTRING
