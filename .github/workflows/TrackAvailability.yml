@@ -6,14 +6,12 @@ permissions:
   id-token: write
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch: # Allows manual triggering
+   schedule:
+   - cron: '*/5 * * * *'  # Every 30 minutes
   
 jobs:
   get-recent-artifact:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout repository
@@ -38,32 +36,30 @@ jobs:
           Write-Host "adding artifact name and wfRun id to env vars $artifactName for run $wfRunId"
           echo "ARTIFACT_NAME=$artifactName" >> $env:GITHUB_ENV
           echo "RUN_ID=$wfRunId" >> $env:GITHUB_ENV
+          dir
 
       - name: Download Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
+          github-token: ${{ github.token }}
           name: ${{ env.ARTIFACT_NAME }}
-          path: ${{ github.workspace }}/artifacts
+          #path: ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}
           run-id: ${{ env.RUN_ID }}
 
-      - name: Verify Download
-        run: |
-          echo "Contents of ${{ github.workspace }}/artifacts:"
-          ls -l ${{ github.workspace }}/artifacts
-
-      - name: Unzip Artifact
-        run: |
-          unzip ${{ github.workspace }}/artifacts/${{ env.ARTIFACT_NAME }}.zip -d ${{ github.workspace }}/TrackAvailability
+#      - name: Unzip
+#        shell: pwsh
+#        run: |
+#          dir
+#          Expand-Archive -Path ${{ github.workspace }}/${{ env.ARTIFACT_NAME }}.zip -Force
+#          dir
 
       - name: Verify Artifact Presence
         shell: pwsh
         run: |
-          cd ${{ github.workspace }}/TrackAvailability 
           dir *.exe
+          .\${{ env.ARTIFACT_NAME }}.exe          
+          
 
-      - name: Test Download Path
-        shell: pwsh
-        run: |
-          cd ${{ github.workspace }}/TrackAvailability 
-          chmod +x TrackAvailability.exe
-          ./TrackAvailability.exe
+
+
+    
