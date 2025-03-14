@@ -77,11 +77,11 @@ jobs:
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: |
-         echo $DVCONNECTIONSTRING
-         echo $AICONNECTIONSTRING
+         echo ${{ env.DVCONNECTIONSTRING }}
+         echo ${{ env.AICONNECTIONSTRING }}
          cd D:\a\\Dataverse-Custom-Availability\\Dataverse-Custom-Availability\bin\Release
          dir
-         .\TrackAvailability.exe $DVCONNECTIONSTRING $AICONNECTIONSTRING
+         .\TrackAvailability.exe ${{ env.DVCONNECTIONSTRING }} ${{ env.AICONNECTIONSTRING }}
          
 
     - name: Publish Artifact
