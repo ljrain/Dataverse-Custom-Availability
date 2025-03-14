@@ -35,9 +35,8 @@ jobs:
       run: |
         echo "Secret: ${{ secrets.AICONNECTIONSTRING }}"
         echo "Secret: ${{ secrets.DVCONNECTIONSTRING }}"
-        echo "ENV: ${{ env.DATAVERSECONNECTIONSTRING }}"
-        echo "ENV: ${{ env.APPINSIGHTSCONNECTIONSTRING }}"
-        echo "ENV: $DATAVERSECONNECTIONSTRING"
+        echo "vars: ${{ vars.DATAVERSECONNECTIONSTRING }}"
+        echo "vars: ${{ vars.APPINSIGHTSCONNECTIONSTRING }}"
     
     - uses: actions/checkout@v4
 
@@ -70,7 +69,7 @@ jobs:
          echo ${{ env.AICONNECTIONSTRING }}
          cd D:\a\\Dataverse-Custom-Availability\\Dataverse-Custom-Availability\bin\Release
          dir
-         .\TrackAvailability.exe ${{ env.DVCONNECTIONSTRING }} ${{ env.AICONNECTIONSTRING }}
+         .\TrackAvailability.exe "${{ secrets.DVCONNECTIONSTRING }}" "${{ secrets.AICONNECTIONSTRING }}"
          
 
     - name: Publish Artifact
