@@ -50,7 +50,10 @@ jobs:
       - name: Set up environment variables
         run: |
           echo "DVCONNECTIONSTRING=${{ secrets.DVCONNECTIONSTRING }}" >> $GITHUB_ENV
-          echo "AICONNECTIONSTRING=${{ secrets.AICONNECTIONSTRING }}" >> $GITHUB_ENV      
+          echo "AICONNECTIONSTRING=${{ secrets.AICONNECTIONSTRING }}" >> $GITHUB_ENV
+          echo $DVCONNECTIONSTRING 
+          echo $AICONNECTIONSTRING  
+          
 
       - name: Verify Artifact Presence
         shell: pwsh
