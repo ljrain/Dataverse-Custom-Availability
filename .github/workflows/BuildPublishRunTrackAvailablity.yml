@@ -52,29 +52,8 @@ jobs:
         echo "AICONNECTIONSTRING=${{ env.APPINSIGHTSCONNECTIONSTRING }}" >> $GITHUB_ENV     
         echo "DVCONNECTIONSTRING: $DVCONNECTIONSTRING"
         echo "AICONNECTIONSTRING: $AICONNECTIONSTRING"
-        echo {{ env.DATAVERSECONNECTIONSTRING }}
-        echo ${{ env.APPINSIGHTSCONNECTIONSTRING }}
-
-    - name: Find the executable
-      id: find-executable-withconnections
-      shell: bash
-      run: |
-       set -e  # Exit immediately if a command exits with a non-zero status
-       if [ -z "$DVCONNECTIONSTRING" ] || [ -z "$AICONNECTIONSTRING" ]; then
-         echo "ARG_ERROR: Please provide the connection strings for Dataverse and Application Insights as an argument. (arg 1 = Dataverse, arg 2 = App Insights)"
-         exit 1
-       fi
-       echo "DVCONNECTIONSTRING: $DVCONNECTIONSTRING"
-       echo "AICONNECTIONSTRING: $AICONNECTIONSTRING"
-       cd D:\a\\Dataverse-Custom-Availability\\Dataverse-Custom-Availability\bin\Release || { echo "Failed to change directory"; exit 1; }
-       dir || { echo "Failed to list directory contents"; exit 1; }
-       if [ -f "./TrackAvailability.exe" ]; then
-         ./TrackAvailability.exe $DVCONNECTIONSTRING $AICONNECTIONSTRING || { echo "Failed to execute TrackAvailability.exe"; exit 1; }
-       else
-         echo "TrackAvailability.exe not found"
-         exit 1
-       fi
-
+        echo ${{ env.AICONNECTIONSTRING }}
+        echo ${{ env.DVCONNECTIONSTRING }}
     
     - name: Find the executable
       id: find-executable
