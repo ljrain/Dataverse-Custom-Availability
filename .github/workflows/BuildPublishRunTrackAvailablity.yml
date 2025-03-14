@@ -55,18 +55,16 @@ jobs:
 
     - name: Set up environment variables
       run: |
-        echo Secret: ${{ secrets.AICONNECTIONSTRING }}
-        echo Secret: ${{ secrets.DVCONNECTIONSTRING }}
-        echo ENV: ${{ env.DATAVERSECONNECTIONSTRING }}
-        echo ENV: ${{ env.APPINSIGHTSCONNECTIONSTRING }}
+        echo "Secret: ${{ secrets.AICONNECTIONSTRING }}"
+        echo "Secret: ${{ secrets.DVCONNECTIONSTRING }}"
+        echo "vars: ${{ vars.DATAVERSECONNECTIONSTRING }}"
+        echo "vars: ${{ vars.APPINSIGHTSCONNECTIONSTRING }}"
     
     - name: Find the executable
       id: find-executable
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: |
-         echo ${{ env.DVCONNECTIONSTRING }}
-         echo ${{ env.AICONNECTIONSTRING }}
          cd D:\a\\Dataverse-Custom-Availability\\Dataverse-Custom-Availability\bin\Release
          dir
          .\TrackAvailability.exe "${{ secrets.DVCONNECTIONSTRING }}" "${{ secrets.AICONNECTIONSTRING }}"
