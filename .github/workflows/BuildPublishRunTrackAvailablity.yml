@@ -33,10 +33,10 @@ jobs:
     steps:
     - name: Set up environment variables
       run: |
-        echo Secret: ${{ secrets.AICONNECTIONSTRING }}
-        echo Secret: ${{ secrets.DVCONNECTIONSTRING }}
-        echo ENV: ${{ env.DATAVERSECONNECTIONSTRING }}
-        echo ENV: ${{ env.APPINSIGHTSCONNECTIONSTRING }}
+        echo "Secret: ${{ secrets.AICONNECTIONSTRING }}"
+        echo "Secret: ${{ secrets.DVCONNECTIONSTRING }}"
+        echo "ENV: ${{ env.DATAVERSECONNECTIONSTRING }}"
+        echo "ENV: ${{ env.APPINSIGHTSCONNECTIONSTRING }}"
         echo "ENV: $DATAVERSECONNECTIONSTRING"
     
     - uses: actions/checkout@v4
