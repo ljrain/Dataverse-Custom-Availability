@@ -48,11 +48,12 @@ jobs:
 
     - name: Set up environment variables
       run: |
-        echo "DVCONNECTIONSTRING=${{ env.DVCONNECTIONSTRING }}" >> $GITHUB_ENV
-        echo "AICONNECTIONSTRING=${{ env.AICONNECTIONSTRING }}" >> $GITHUB_ENV     
+        echo "DVCONNECTIONSTRING=${{ env.DATAVERSECONNECTIONSTRING }}" >> $GITHUB_ENV
+        echo "AICONNECTIONSTRING=${{ env.APPINSIGHTSCONNECTIONSTRING }}" >> $GITHUB_ENV     
         echo "DVCONNECTIONSTRING: $DVCONNECTIONSTRING"
         echo "AICONNECTIONSTRING: $AICONNECTIONSTRING"
-        echo ${{ env.DVCONNECTIONSTRING }} ${{ env.AICONNECTIONSTRING }}
+        echo {{ env.DATAVERSECONNECTIONSTRING }}
+        echo ${{ env.APPINSIGHTSCONNECTIONSTRING }}
 
     - name: Find the executable
       id: find-executable-withconnections
