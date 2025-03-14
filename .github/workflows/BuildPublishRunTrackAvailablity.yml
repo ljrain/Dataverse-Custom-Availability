@@ -57,7 +57,7 @@ jobs:
       run: |
        set -e  # Exit immediately if a command exits with a non-zero status
        if [ -z "$DVCONNECTIONSTRING" ] || [ -z "$AICONNECTIONSTRING" ]; then
-         echo "Please provide the connection strings for Dataverse and Application Insights as an argument. (arg 1 = Dataverse, arg 2 = App Insights)"
+         echo "ARG_ERROR: Please provide the connection strings for Dataverse and Application Insights as an argument. (arg 1 = Dataverse, arg 2 = App Insights)"
          exit 1
        fi
        echo "DVCONNECTIONSTRING: $DVCONNECTIONSTRING"
