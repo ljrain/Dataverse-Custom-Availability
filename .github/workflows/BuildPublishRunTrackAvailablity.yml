@@ -31,6 +31,14 @@ jobs:
     runs-on: windows-latest
 
     steps:
+    - name: Set up environment variables
+      run: |
+        echo Secret: ${{ secrets.AICONNECTIONSTRING }}
+        echo Secret: ${{ secrets.DVCONNECTIONSTRING }}
+        echo ENV: ${{ env.DATAVERSECONNECTIONSTRING }}
+        echo ENV: ${{ env.APPINSIGHTSCONNECTIONSTRING }}
+        echo "ENV: $DATAVERSECONNECTIONSTRING"
+    
     - uses: actions/checkout@v4
 
     - name: Add MSBuild to PATH
@@ -50,8 +58,8 @@ jobs:
       run: |
         echo Secret: ${{ secrets.AICONNECTIONSTRING }}
         echo Secret: ${{ secrets.DVCONNECTIONSTRING }}
-        echo ENV: ${{ env.DVCONNECTIONSTRING }}
-        echo ENV: ${{ env.AICONNECTIONSTRING }}
+        echo ENV: ${{ env.DATAVERSECONNECTIONSTRING }}
+        echo ENV: ${{ env.APPINSIGHTSCONNECTIONSTRING }}
     
     - name: Find the executable
       id: find-executable
