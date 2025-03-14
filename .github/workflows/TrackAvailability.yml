@@ -49,8 +49,8 @@ jobs:
 
       - name: Set up environment variables
         run: |
-          echo "DVCONNECTIONSTRING=${{ secrets.DVCONNECTIONSTRING }}" >> $GITHUB_ENV
-          echo "AICONNECTIONSTRING=${{ secrets.AICONNECTIONSTRING }}" >> $GITHUB_ENV
+          echo "DVCONNECTIONSTRING=${{ env.DATAVERSECONNECTIONSTRING }}" >> $GITHUB_ENV
+          echo "AICONNECTIONSTRING=${{ env.APPINSIGHTSCONNECTIONSTRING }}" >> $GITHUB_ENV
           echo $DVCONNECTIONSTRING 
           echo $AICONNECTIONSTRING  
           
